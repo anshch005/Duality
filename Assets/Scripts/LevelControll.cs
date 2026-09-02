@@ -1,38 +1,71 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelControl : MonoBehaviour
-{   
-     private void OnCollisionEnter(Collision other) 
+public class LevelControll : MonoBehaviour
+{
+    private static bool blueAtNext = false;
+    private static bool pinkAtNext = false;
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         switch (other.gameObject.tag)
         {
-            case "Hostile":
-                ReloadLevel();
+            case "Next":
+
+                if (CompareTag("PlayerBlue"))
+                {
+                    blueAtNext = true;
+                    Debug.Log("Blue reached Next");
+                }
+
+                if (CompareTag("PlayerPink"))
+                {
+                    pinkAtNext = true;
+                    Debug.Log("Pink reached Next");
+                }
+
+                if (blueAtNext && pinkAtNext)
+                {
+                    LoadNextLevel();
+                }
+
                 break;
-            case "End":
-                Debug.Log("Why did you pick me up, I'm not in this game");
-                LoadNextLevel();
+
+            case "Hostile":
+                Debug.Log("Player hit Hostile");
                 break;
         }
+    }
 
-        void LoadNextLevel()
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Next"))
+        {
+            if (CompareTag("PlayerBlue"))
             {
-            int currentScene = SceneManager.GetActiveScene().buildIndex;
-            int nextScene = currentScene + 1;
-            
-            if (nextScene == SceneManager.sceneCountInBuildSettings)
-                {
-                    nextScene = 0;
-                }
-            
-                SceneManager.LoadScene(nextScene);
+                blueAtNext = false;
             }
 
-        void ReloadLevel()
-        {
-            int currentScene = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(currentScene);
+            if (CompareTag("PlayerPink"))
+            {
+                pinkAtNext = false;
+            }
         }
+    }
+
+    private void LoadNextLevel()
+    {
+        blueAtNext = false;
+        pinkAtNext = false;
+
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        int nextScene = currentScene + 1;
+
+        if (nextScene == SceneManager.sceneCountInBuildSettings)
+        {
+            nextScene = 0;
+        }
+
+        SceneManager.LoadScene(nextScene);
     }
 }
