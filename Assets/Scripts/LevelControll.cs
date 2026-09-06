@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -32,7 +33,8 @@ public class LevelControll : MonoBehaviour
                 break;
 
             case "Hostile":
-                Debug.Log("Player hit Hostile");
+                Debug.Log("Player hit Hostile - Respawning in 3 seconds...");
+                StartCoroutine(ReloadLevel());
                 break;
         }
     }
@@ -51,6 +53,27 @@ public class LevelControll : MonoBehaviour
                 pinkAtNext = false;
             }
         }
+    }
+
+    private IEnumerator ReloadLevel()
+    {
+        // Disable movement of the player that hit Hostile
+        PlayerBlue movement = GetComponent<PlayerBlue>();
+
+        if (movement != null)
+        {
+            movement.enabled = false;
+        }
+
+        yield return new WaitForSeconds(3f);
+
+        Debug.Log("Respawning level...");
+
+        blueAtNext = false;
+        pinkAtNext = false;
+
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene);
     }
 
     private void LoadNextLevel()

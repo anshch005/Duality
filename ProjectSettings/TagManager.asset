@@ -8,6 +8,7 @@ TagManager:
   - PlayerBlue
   - PlayerPink
   - Next
+  - Hostile
   layers:
   - Default
   - TransparentFX
