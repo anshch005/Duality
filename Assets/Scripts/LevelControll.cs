@@ -1,12 +1,14 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelControll : MonoBehaviour
 {
+    [Header("Options Menu")]
+    [SerializeField] private GameObject OptionsMenu;
     private static bool blueAtNext = false;
     private static bool pinkAtNext = false;
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         switch (other.gameObject.tag)
@@ -30,6 +32,40 @@ public class LevelControll : MonoBehaviour
                     LoadNextLevel();
                 }
 
+                break;
+
+            case "Options":
+                if (other.gameObject.CompareTag("PlayerBlue"))
+                {
+                    Debug.Log("Options Menu Opened");
+                    OptionsMenu.SetActive(true);
+
+                    foreach (var text in FindObjectsByType<Text>(FindObjectsSortMode.None))
+                    {
+                        text.enabled = false;
+                    }
+                }
+                break;
+
+            case "Back":
+                if (other.gameObject.CompareTag("PlayerBlue"))
+                {
+                    Debug.Log("Options Menu Closed");
+                    OptionsMenu.SetActive(false);
+
+                    foreach (var text in FindObjectsByType<Text>(FindObjectsSortMode.None))
+                    {
+                        text.enabled = true;
+                    }
+                }
+                break;
+
+            case "Quit":
+                if (other.gameObject.CompareTag("PlayerBlue"))
+                {
+                    Debug.Log("Quit Game");
+                    Application.Quit();
+                }
                 break;
 
             case "Hostile":
@@ -63,9 +99,10 @@ public class LevelControll : MonoBehaviour
         if (movement != null)
         {
             movement.enabled = false;
+            movement.Die();
         }
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.5f);
 
         Debug.Log("Respawning level...");
 

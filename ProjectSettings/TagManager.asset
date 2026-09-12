@@ -9,6 +9,9 @@ TagManager:
   - PlayerPink
   - Next
   - Hostile
+  - Option
+  - Quit
+  - Back
   layers:
   - Default
   - TransparentFX

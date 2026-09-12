@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 73f92a50abe00ea428b79f37b1de1b54
+guid: 6e7580be5a9ef3a4a8afe09141952188
 AssetOrigin:
   serializedVersion: 1
   productId: 177430
   packageName: Free 2D Mega Pack
   packageVersion: 1.0
-  assetPath: Assets/Brackeys/2D Mega Pack/Environment/Tiles/SpikeTile_Down.png
+  assetPath: Assets/Brackeys/2D Mega Pack/Environment/Tiles/SpikeTile.png
   uploadId: 386437
 TextureImporter:
   internalIDToNameTable: []
@@ -50,7 +50,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -86,7 +86,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -99,15 +99,37 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: SpikeTile_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a39936bce5b577a278faea84b1e3936b
+      internalID: -1158016668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c36388f2f59f95b4aa521c2680722c51
+    spriteID: 8913faf1b08db2d4991128840d55741a
     internalID: 0
     vertices: []
     indices: 
@@ -116,7 +138,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SpikeTile_0: -1158016668
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
