@@ -880,6 +880,7 @@ GameObject:
   - component: {fileID: 298873659}
   - component: {fileID: 298873663}
   - component: {fileID: 298873664}
+  - component: {fileID: 298873665}
   m_Layer: 0
   m_Name: PlayerBlue
   m_TagString: PlayerBlue
@@ -1098,7 +1099,7 @@ MonoBehaviour:
     m_Flags: 0
   moveSpeed: 10
   jumpForce: 7
-  animator: {fileID: 0}
+  animator: {fileID: 298873665}
 --- !u!114 &298873664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,6 +1113,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelControll
   OptionsMenu: {fileID: 0}
+  ObjectToDisable1: {fileID: 0}
+  ObjectToDisable2: {fileID: 0}
+  ObjectToDisable3: {fileID: 0}
+  ObjectToDisable4: {fileID: 0}
+--- !u!95 &298873665
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298873658}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f07b6955ee40a5f4186f7c5fe592c77f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &331827547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,7 +1206,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.5388619}
+  m_Offset: {x: 0, y: -0.04615567}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1189,7 +1216,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.6, y: 0.52227616}
+  m_Size: {x: 1.6, y: 0.48577976}
   m_EdgeRadius: 0
 --- !u!212 &331827550
 SpriteRenderer:
@@ -1317,7 +1344,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.5388619}
+  m_Offset: {x: 0, y: -0.019988976}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1327,7 +1354,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.6, y: 0.52227616}
+  m_Size: {x: 1.6, y: 0.42793608}
   m_EdgeRadius: 0
 --- !u!212 &336521992
 SpriteRenderer:
@@ -3358,6 +3385,7 @@ GameObject:
   - component: {fileID: 1302520277}
   - component: {fileID: 1302520281}
   - component: {fileID: 1302520282}
+  - component: {fileID: 1302520283}
   m_Layer: 0
   m_Name: PlayerPink
   m_TagString: PlayerPink
@@ -3576,7 +3604,7 @@ MonoBehaviour:
     m_Flags: 0
   moveSpeed: 10
   jumpForce: 7
-  animator: {fileID: 0}
+  animator: {fileID: 1302520283}
 --- !u!114 &1302520282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3590,6 +3618,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelControll
   OptionsMenu: {fileID: 0}
+  ObjectToDisable1: {fileID: 0}
+  ObjectToDisable2: {fileID: 0}
+  ObjectToDisable3: {fileID: 0}
+  ObjectToDisable4: {fileID: 0}
+--- !u!95 &1302520283
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302520276}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c148010424570654997acde04df07efe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1561423308
 GameObject:
   m_ObjectHideFlags: 0

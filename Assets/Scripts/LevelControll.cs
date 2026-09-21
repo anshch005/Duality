@@ -1,99 +1,181 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class LevelControll : MonoBehaviour
 {
     [Header("Options Menu")]
     [SerializeField] private GameObject OptionsMenu;
+
+    [Header("Objects Disabled While Options Is Open")]
+    [SerializeField] private GameObject ObjectToDisable1;
+    [SerializeField] private GameObject ObjectToDisable2;
+    [SerializeField] private GameObject ObjectToDisable3;
+    [SerializeField] private GameObject ObjectToDisable4;
+
     private static bool blueAtNext = false;
     private static bool pinkAtNext = false;
-    private void OnTriggerEnter2D(Collider2D other)
+
+    private void Start()
     {
-        switch (other.gameObject.tag)
+        // Make sure Options Menu starts disabled
+        if (OptionsMenu != null)
         {
-            case "Next":
-
-                if (CompareTag("PlayerBlue"))
-                {
-                    blueAtNext = true;
-                    Debug.Log("Blue reached Next");
-                }
-
-                if (CompareTag("PlayerPink"))
-                {
-                    pinkAtNext = true;
-                    Debug.Log("Pink reached Next");
-                }
-
-                if (blueAtNext && pinkAtNext)
-                {
-                    LoadNextLevel();
-                }
-
-                break;
-
-            case "Options":
-                if (other.gameObject.CompareTag("PlayerBlue"))
-                {
-                    Debug.Log("Options Menu Opened");
-                    OptionsMenu.SetActive(true);
-
-                    foreach (var text in FindObjectsByType<Text>(FindObjectsSortMode.None))
-                    {
-                        text.enabled = false;
-                    }
-                }
-                break;
-
-            case "Back":
-                if (other.gameObject.CompareTag("PlayerBlue"))
-                {
-                    Debug.Log("Options Menu Closed");
-                    OptionsMenu.SetActive(false);
-
-                    foreach (var text in FindObjectsByType<Text>(FindObjectsSortMode.None))
-                    {
-                        text.enabled = true;
-                    }
-                }
-                break;
-
-            case "Quit":
-                if (other.gameObject.CompareTag("PlayerBlue"))
-                {
-                    Debug.Log("Quit Game");
-                    Application.Quit();
-                }
-                break;
-
-            case "Hostile":
-                Debug.Log("Player hit Hostile - Respawning in 3 seconds...");
-                StartCoroutine(ReloadLevel());
-                break;
+            OptionsMenu.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError(
+                "OptionsMenu is NOT assigned on " + gameObject.name
+            );
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Next"))
+
+        if (other.CompareTag("Next"))
         {
             if (CompareTag("PlayerBlue"))
             {
-                blueAtNext = false;
+                blueAtNext = true;
+                Debug.Log("Blue reached Next");
             }
 
             if (CompareTag("PlayerPink"))
             {
-                pinkAtNext = false;
+                pinkAtNext = true;
+                Debug.Log("Pink reached Next");
             }
+
+            if (blueAtNext && pinkAtNext)
+            {
+                LoadNextLevel();
+            }
+
+            return;
+        }
+
+        if (other.CompareTag("Options"))
+        {
+            Debug.Log(
+                gameObject.name + " stepped on Options"
+            );
+
+            // Open Options Menu
+            if (OptionsMenu != null)
+            {
+                OptionsMenu.SetActive(true);
+                Debug.Log("Options Menu OPENED");
+            }
+            else
+            {
+                Debug.LogError(
+                    "OptionsMenu is NOT assigned!"
+                );
+            }
+
+            // Disable the 4 selected GameObjects
+            SetObjectsActive(false);
+
+            return;
+        }
+
+        if (other.CompareTag("Back"))
+        {
+            Debug.Log(
+                gameObject.name + " stepped on Back"
+            );
+
+            // Close Options Menu
+            if (OptionsMenu != null)
+            {
+                OptionsMenu.SetActive(false);
+                Debug.Log("Options Menu CLOSED");
+            }
+
+            // Re-enable the 4 selected GameObjects
+            SetObjectsActive(true);
+
+            return;
+        }
+
+        if (other.CompareTag("Quit"))
+        {
+            Debug.Log(
+                gameObject.name + " stepped on Quit"
+            );
+
+#if UNITY_EDITOR
+            Debug.Log(
+                "Quit requested - stopping Unity Play Mode."
+            );
+
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+
+            return;
+        }
+
+        if (other.CompareTag("Hostile"))
+        {
+            Debug.Log(gameObject.name + " hit Hostile - Respawning...");
+
+            StartCoroutine(ReloadLevel());
+
+            return;
+        }
+    }
+
+    private void SetObjectsActive(bool active)
+    {
+        if (ObjectToDisable1 != null)
+        {
+            ObjectToDisable1.SetActive(active);
+        }
+
+        if (ObjectToDisable2 != null)
+        {
+            ObjectToDisable2.SetActive(active);
+        }
+
+        if (ObjectToDisable3 != null)
+        {
+            ObjectToDisable3.SetActive(active);
+        }
+
+        if (ObjectToDisable4 != null)
+        {
+            ObjectToDisable4.SetActive(active);
+        }
+
+        Debug.Log(
+            "Options objects " +
+            (active ? "ENABLED" : "DISABLED")
+        );
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!other.CompareTag("Next"))
+            return;
+
+        if (CompareTag("PlayerBlue"))
+        {
+            blueAtNext = false;
+        }
+
+        if (CompareTag("PlayerPink"))
+        {
+            pinkAtNext = false;
         }
     }
 
     private IEnumerator ReloadLevel()
     {
-        // Disable movement of the player that hit Hostile
         PlayerBlue movement = GetComponent<PlayerBlue>();
 
         if (movement != null)
@@ -110,18 +192,23 @@ public class LevelControll : MonoBehaviour
         pinkAtNext = false;
 
         int currentScene = SceneManager.GetActiveScene().buildIndex;
+
         SceneManager.LoadScene(currentScene);
     }
 
     private void LoadNextLevel()
     {
+        Debug.Log("Both players reached Next!");
+
         blueAtNext = false;
         pinkAtNext = false;
 
-        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        int currentScene =
+            SceneManager.GetActiveScene().buildIndex;
+
         int nextScene = currentScene + 1;
 
-        if (nextScene == SceneManager.sceneCountInBuildSettings)
+        if (nextScene >= SceneManager.sceneCountInBuildSettings)
         {
             nextScene = 0;
         }
