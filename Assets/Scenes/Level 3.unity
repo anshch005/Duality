@@ -1847,17 +1847,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0040187836, y: -0.10824728}
+  m_Offset: {x: 0.0002656132, y: -0.0727793}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 1.9375}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.3745766, y: 1.6634526}
+  m_Size: {x: 0.66337967, y: 0.76135874}
   m_EdgeRadius: 0
 --- !u!212 &465508019
 SpriteRenderer:
@@ -1908,7 +1908,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 5213229242370633579, guid: 4911b71d92a707232880a3abb9e1e3b9, type: 3}
+  m_Sprite: {fileID: 2774111426448763615, guid: 9e69ee9b4922d94439aaff7b581d99bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1927,8 +1927,8 @@ Transform:
   m_GameObject: {fileID: 465508017}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.086, y: -3.81, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalPosition: {x: 0.086, y: -3.64, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1945,6 +1945,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ec96e67d5dafd4eb61fb8ee84999ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
+  defaultSprite: {fileID: 2774111426448763615, guid: 9e69ee9b4922d94439aaff7b581d99bb, type: 3}
+  blueReachedSprite: {fileID: -999142042, guid: 9e69ee9b4922d94439aaff7b581d99bb, type: 3}
+  pinkReachedSprite: {fileID: 771511104, guid: 9e69ee9b4922d94439aaff7b581d99bb, type: 3}
+  bothReachedSprite: {fileID: -6224954, guid: 9e69ee9b4922d94439aaff7b581d99bb, type: 3}
+  fadeDuration: 0.25
+  levelTransitionDelay: 0.6
+  playerReachedSFX: {fileID: 0}
+  bothReachedSFX: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -6721,6 +6729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3122bedb11bb25a41b305ae95eb6a6dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBlue
+  playerType: 0
   moveInputAction:
     m_Name: Move Input
     m_Type: 0
@@ -6773,6 +6782,7 @@ MonoBehaviour:
     m_Flags: 0
   moveSpeed: 10
   jumpForce: 6
+  sensitivityMultiplier: 1
   animator: {fileID: 4727629564470808956}
   jumpSFX: {fileID: 8300000, guid: 11328f4d85d3e264ea6c75a5e79e9d36, type: 3}
   walkSFX: {fileID: 8300000, guid: 993cf11862c5d7946a1e52b23c5b3929, type: 3}
@@ -6812,6 +6822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3122bedb11bb25a41b305ae95eb6a6dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBlue
+  playerType: 0
   moveInputAction:
     m_Name: Move Input
     m_Type: 0
@@ -6864,6 +6875,7 @@ MonoBehaviour:
     m_Flags: 0
   moveSpeed: 10
   jumpForce: 6
+  sensitivityMultiplier: 1
   animator: {fileID: 5314111547288024027}
   jumpSFX: {fileID: 8300000, guid: 11328f4d85d3e264ea6c75a5e79e9d36, type: 3}
   walkSFX: {fileID: 8300000, guid: 993cf11862c5d7946a1e52b23c5b3929, type: 3}

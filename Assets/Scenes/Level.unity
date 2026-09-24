@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 48196688}
   - component: {fileID: 48196687}
   - component: {fileID: 48196690}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: P3
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1846,7 +1846,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1911,7 +1911,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 557119073}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Platforms
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2193,7 +2193,7 @@ GameObject:
   - component: {fileID: 826187347}
   - component: {fileID: 826187346}
   - component: {fileID: 826187349}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: P1
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -3392,7 +3392,7 @@ GameObject:
   - component: {fileID: 1259551242}
   - component: {fileID: 1259551241}
   - component: {fileID: 1259551240}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: P4
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -3578,7 +3578,7 @@ GameObject:
   - component: {fileID: 1263698070}
   - component: {fileID: 1263698069}
   - component: {fileID: 1263698068}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: P5
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -5008,7 +5008,7 @@ GameObject:
   - component: {fileID: 1727867922}
   - component: {fileID: 1727867921}
   - component: {fileID: 1727867924}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: P2
   m_TagString: Ground
   m_Icon: {fileID: 0}
