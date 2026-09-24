@@ -8,7 +8,7 @@ public class MusicManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
@@ -18,12 +18,18 @@ public class MusicManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         float savedVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 1f);
-        musicSource.volume = savedVolume;
+        if (musicSource != null)
+        {
+            musicSource.volume = savedVolume;
+        }
     }
 
     public void SetMusicVolume(float volume)
     {
-        musicSource.volume = volume;
+        if (musicSource != null)
+        {
+            musicSource.volume = volume;
+        }
 
         PlayerPrefs.SetFloat(MusicVolumeKey, volume);
         PlayerPrefs.Save();
@@ -31,6 +37,6 @@ public class MusicManager : MonoBehaviour
 
     public float GetMusicVolume()
     {
-        return musicSource.volume;
+        return musicSource != null ? musicSource.volume : 1f;
     }
 }

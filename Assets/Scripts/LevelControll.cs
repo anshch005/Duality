@@ -18,7 +18,6 @@ public class LevelControll : MonoBehaviour
 
     private void Start()
     {
-        // Make sure Options Menu starts disabled
         if (OptionsMenu != null)
         {
             OptionsMenu.SetActive(false);
@@ -31,27 +30,25 @@ public class LevelControll : MonoBehaviour
         }
     }
 
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-
         if (other.CompareTag("Next"))
         {
             if (CompareTag("PlayerBlue"))
             {
                 blueAtNext = true;
-                Debug.Log("Blue reached Next");
+                Debug.Log("Blue reached Start/Next");
             }
 
             if (CompareTag("PlayerPink"))
             {
                 pinkAtNext = true;
-                Debug.Log("Pink reached Next");
+                Debug.Log("Pink reached Start/Next");
             }
 
             if (blueAtNext && pinkAtNext)
             {
-                LoadNextLevel();
+                StartGame();
             }
 
             return;
@@ -59,11 +56,8 @@ public class LevelControll : MonoBehaviour
 
         if (other.CompareTag("Options"))
         {
-            Debug.Log(
-                gameObject.name + " stepped on Options"
-            );
+            Debug.Log(gameObject.name + " stepped on Options");
 
-            // Open Options Menu
             if (OptionsMenu != null)
             {
                 OptionsMenu.SetActive(true);
@@ -71,12 +65,9 @@ public class LevelControll : MonoBehaviour
             }
             else
             {
-                Debug.LogError(
-                    "OptionsMenu is NOT assigned!"
-                );
+                Debug.LogError("OptionsMenu is NOT assigned!");
             }
 
-            // Disable the 4 selected GameObjects
             SetObjectsActive(false);
 
             return;
@@ -84,18 +75,14 @@ public class LevelControll : MonoBehaviour
 
         if (other.CompareTag("Back"))
         {
-            Debug.Log(
-                gameObject.name + " stepped on Back"
-            );
+            Debug.Log(gameObject.name + " stepped on Back");
 
-            // Close Options Menu
             if (OptionsMenu != null)
             {
                 OptionsMenu.SetActive(false);
                 Debug.Log("Options Menu CLOSED");
             }
 
-            // Re-enable the 4 selected GameObjects
             SetObjectsActive(true);
 
             return;
@@ -103,30 +90,31 @@ public class LevelControll : MonoBehaviour
 
         if (other.CompareTag("Quit"))
         {
-            Debug.Log(
-                gameObject.name + " stepped on Quit"
-            );
+            Debug.Log(gameObject.name + " stepped on Quit");
 
 #if UNITY_EDITOR
-            Debug.Log(
-                "Quit requested - stopping Unity Play Mode."
-            );
-
+            Debug.Log("Quit requested - stopping Unity Play Mode.");
             UnityEditor.EditorApplication.isPlaying = false;
 #else
             Application.Quit();
 #endif
-
             return;
         }
+    }
 
-        if (other.CompareTag("Hostile"))
-        {
-            Debug.Log(gameObject.name + " hit Hostile - Respawning...");
-
-            StartCoroutine(ReloadLevel());
-
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!other.CompareTag("Next"))
             return;
+
+        if (CompareTag("PlayerBlue"))
+        {
+            blueAtNext = false;
+        }
+
+        if (CompareTag("PlayerPink"))
+        {
+            pinkAtNext = false;
         }
     }
 
@@ -152,60 +140,17 @@ public class LevelControll : MonoBehaviour
             ObjectToDisable4.SetActive(active);
         }
 
-        Debug.Log(
-            "Options objects " +
-            (active ? "ENABLED" : "DISABLED")
-        );
+        Debug.Log("Options objects " + (active ? "ENABLED" : "DISABLED"));
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    public void StartGame()
     {
-        if (!other.CompareTag("Next"))
-            return;
-
-        if (CompareTag("PlayerBlue"))
-        {
-            blueAtNext = false;
-        }
-
-        if (CompareTag("PlayerPink"))
-        {
-            pinkAtNext = false;
-        }
-    }
-
-    private IEnumerator ReloadLevel()
-    {
-        PlayerBlue movement = GetComponent<PlayerBlue>();
-
-        if (movement != null)
-        {
-            movement.enabled = false;
-            movement.Die();
-        }
-
-        yield return new WaitForSeconds(0.5f);
-
-        Debug.Log("Respawning level...");
+        Debug.Log("Starting game / loading next level...");
 
         blueAtNext = false;
         pinkAtNext = false;
 
         int currentScene = SceneManager.GetActiveScene().buildIndex;
-
-        SceneManager.LoadScene(currentScene);
-    }
-
-    private void LoadNextLevel()
-    {
-        Debug.Log("Both players reached Next!");
-
-        blueAtNext = false;
-        pinkAtNext = false;
-
-        int currentScene =
-            SceneManager.GetActiveScene().buildIndex;
-
         int nextScene = currentScene + 1;
 
         if (nextScene >= SceneManager.sceneCountInBuildSettings)
@@ -214,5 +159,51 @@ public class LevelControll : MonoBehaviour
         }
 
         SceneManager.LoadScene(nextScene);
+    }
+
+    /// <summary>
+    /// Loads the first gameplay level (Level 1 / build index 1).
+    /// </summary>
+    public void PlayAgain()
+    {
+        Debug.Log("Play Again clicked");
+        if (Application.CanStreamedLevelBeLoaded("Level 1"))
+        {
+            SceneManager.LoadScene("Level 1");
+        }
+        else
+        {
+            int targetIndex = SceneManager.sceneCountInBuildSettings > 1 ? 1 : 0;
+            SceneManager.LoadScene(targetIndex);
+        }
+    }
+
+    /// <summary>
+    /// Loads the Main Menu scene (Level / build index 0).
+    /// </summary>
+    public void MainMenu()
+    {
+        Debug.Log("Main Menu clicked");
+        if (Application.CanStreamedLevelBeLoaded("Level"))
+        {
+            SceneManager.LoadScene("Level");
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
+
+    /// <summary>
+    /// Quits the game or stops play mode in editor.
+    /// </summary>
+    public void QuitGame()
+    {
+        Debug.Log("Quit Game clicked");
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }

@@ -12,6 +12,7 @@ TagManager:
   - Quit
   - Back
   - Options
+  - Door
   layers:
   - Default
   - TransparentFX

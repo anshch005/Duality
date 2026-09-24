@@ -8,7 +8,7 @@ public class SFXManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
@@ -18,12 +18,18 @@ public class SFXManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         float savedVolume = PlayerPrefs.GetFloat(SFXVolumeKey, 1f);
-        sfxSource.volume = savedVolume;
+        if (sfxSource != null)
+        {
+            sfxSource.volume = savedVolume;
+        }
     }
 
     public void SetSFXVolume(float volume)
     {
-        sfxSource.volume = volume;
+        if (sfxSource != null)
+        {
+            sfxSource.volume = volume;
+        }
 
         PlayerPrefs.SetFloat(SFXVolumeKey, volume);
         PlayerPrefs.Save();
@@ -31,11 +37,12 @@ public class SFXManager : MonoBehaviour
 
     public float GetSFXVolume()
     {
-        return sfxSource.volume;
+        return sfxSource != null ? sfxSource.volume : 1f;
     }
+
     public void PlaySFX(AudioClip clip)
     {
-        if (clip == null)
+        if (clip == null || sfxSource == null)
         {
             return;
         }
